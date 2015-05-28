@@ -60,11 +60,21 @@ third (_, _, x) = x
 --cracklepop :: Integral a [Char] b => [a] -> [b]
 divides x y = mod x y == 0
 
+cracklepopn :: Integer -> String
 cracklepopn n
     | divides n 15 = "CracklePop"
     | divides n 5 = "Pop"
     | divides n 3 = "Crackle"
     | otherwise = show n
+
+cracklepopn' :: Integer -> String
+cracklepopn' n
+    | dividesn 15 = "CracklePop"
+    | dividesn 5 = "Pop"
+    | dividesn 3 = "Crackle"
+    | otherwise = show n
+    where dividesn = (\x y -> mod x y == 0) n
+
 
 cracklepop :: [Integer] -> IO ()
 cracklepop = mapM_ putStrLn . map cracklepopn
