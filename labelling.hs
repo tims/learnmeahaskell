@@ -1,4 +1,7 @@
-import qualified Data.Map.Strict as M
+import qualified Data.Map.Strict as Map
+import Data.List
+import Data.Function
+import Data.Ord
 
 main :: IO ()
 main = return ()
@@ -10,11 +13,16 @@ data ArgumentFramework a = AF [(a,a)] deriving (Show, Eq)
 -- record syntax
 -- data ArgumentFramework2 a = AF2 (M.Map a [a]) (M.Map a [a])
 data ArgumentFramework2 a = AF2 {
- forwardMap :: M.Map a [a],
- reverseMap :: M.Map a [a] } deriving (Show, Eq)
+ forwardAttacks :: Map.Map a [a],
+ reverseAttacks :: Map.Map a [a] } deriving (Show, Eq)
 
-mkAF :: [(a,a)] -> ArgumentFramework2 a
-mkAF = undefined
+sortGroupBy f = groupBy ((==) `on` f) . sortBy (comparing f)
+
+mkAF :: (Ord a) => [(a,a)] -> ArgumentFramework2 a
+mkAF attacks = let
+    fwd = (map (\atts -> (fst (head atts), map snd atts)) (sortGroupBy fst attacks))
+    rev = (map (\atts -> (snd (head atts), map fst atts)) (sortGroupBy snd attacks))
+    in AF2 (Map.fromList fwd) (Map.fromList rev)
 
 grounded_labelling :: (Show a, Eq a) => ArgumentFramework a -> [Label a] -> [Label a]
 grounded_labelling af labelling =
