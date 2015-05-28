@@ -1,13 +1,8 @@
 import Data.List
 
-data Label a = In a | Out a | Undecided a
+data Label a = In a | Out a | Undecided a deriving (Show, Eq)
 
-data ArgumentFramework a = AF [(a, a)]
-
-instance (Show a) => Show (Label a) where
-   show (In a) = "In " ++ show a
-   show (Out a) = "Out " ++ show a
-   show (Undecided a) = "Undec " ++ show a
+data ArgumentFramework a = AF [(a, a)] deriving (Show, Eq)
 
 grounded_labelling :: (Show a, Eq a) => ArgumentFramework a -> [Label a] -> [Label a]
 grounded_labelling af labelling =
@@ -23,7 +18,7 @@ grounded_labelling af labelling =
             ++ (map Out outs')
             ++ (map Undecided undecided')
     in
-        if undecided == undecided' then
+        if length undecided == length undecided' then
             labelling'
         else
             grounded_labelling af labelling'
@@ -35,10 +30,3 @@ hasNoValidAttacks a outs (AF attacks) =
 hasValidAttack :: (Eq a) =>  a -> [a] -> ArgumentFramework a -> Bool
 hasValidAttack a ins (AF attacks) =
     or [ elem x ins | (x,y) <- attacks, y == a]
-
-
-
-instance (Show a) => Show (ArgumentFramework a) where
-    show (AF attacks) =
-        "AF [" ++ (concat (intersperse ", " (map (\(x,y) -> show x ++ " att " ++ show y) attacks))) ++ "]"
-
