@@ -69,18 +69,18 @@ cracklepopn n
 
 cracklepopn' :: Integer -> String
 cracklepopn' n
-    | dividesn 15 = "CracklePop"
-    | dividesn 5 = "Pop"
-    | dividesn 3 = "Crackle"
+    | dividesn' 15 = "CracklePop"
+    | dividesn' 5 = "Pop"
+    | dividesn' 3 = "Crackle"
     | otherwise = show n
-    where dividesn = (\x y -> mod x y == 0) n
+    where dividesn' x = mod n x == 0
 
 
 cracklepop :: [Integer] -> IO ()
 cracklepop = mapM_ putStrLn . map cracklepopn
 
 cracklepop' :: [Integer] -> IO [()]
-cracklepop' = sequence . map putStrLn . map cracklepopn
--- TODO What does the subtle difference in these types mean?
+cracklepop' = sequence . map putStrLn . map cracklepopn'
+-- TODO confused about how to make it now print and array of units at the end.
 
 
