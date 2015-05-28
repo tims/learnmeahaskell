@@ -1,9 +1,20 @@
+import qualified Data.Map.Strict as M
+
 main :: IO ()
 main = return ()
 
 data Label a = In a | Out a | Undecided a deriving (Show, Eq)
 
-data ArgumentFramework a = AF [(a, a)] deriving (Show, Eq)
+data ArgumentFramework a = AF [(a,a)] deriving (Show, Eq)
+
+-- record syntax
+-- data ArgumentFramework2 a = AF2 (M.Map a [a]) (M.Map a [a])
+data ArgumentFramework2 a = AF2 {
+ forwardMap :: M.Map a [a],
+ reverseMap :: M.Map a [a] } deriving (Show, Eq)
+
+mkAF :: [(a,a)] -> ArgumentFramework2 a
+mkAF = undefined
 
 grounded_labelling :: (Show a, Eq a) => ArgumentFramework a -> [Label a] -> [Label a]
 grounded_labelling af labelling =
