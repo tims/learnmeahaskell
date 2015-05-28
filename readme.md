@@ -5,7 +5,7 @@ Here be implementations of labelling algorithms for argumentation frameworks.
 Labelling algorithms traverse an argumentation graph and partition it into IN, OUT, and UNDECIDED partitions.
 They may also generate multiple partitions depending on their out look on life.
 
-IN nodes are winning arguments, out nodes are losing nodes and undecided nodes are undecided.
+IN nodes are winning arguments, OUT nodes are losing nodes and UNDECIDED nodes are undecided.
 
 **Grounded** semantics are skeptical. So the grounded labelling algorithm can only generates one labelling. 
 It leaves undecided nodes as undecided.
