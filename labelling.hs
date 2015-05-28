@@ -48,3 +48,4 @@ hasNoValidAttacks a outs attackers = and [ elem x outs | x <- attackers]
 
 hasValidAttack :: (Eq a) =>  a -> [a] -> [a] -> Bool
 hasValidAttack a ins attackers  = or [ elem x ins | x <- attackers]
+
