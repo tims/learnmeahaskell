@@ -1,3 +1,6 @@
+main :: IO ()
+main = return ()
+
 data Label a = In a | Out a | Undecided a deriving (Show, Eq)
 
 data ArgumentFramework a = AF [(a, a)] deriving (Show, Eq)
