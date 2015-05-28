@@ -1,7 +1,0 @@
--- wat?
-main = putStr ""
-
-
-
-
-
